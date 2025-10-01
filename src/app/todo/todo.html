@@ -1,0 +1,25 @@
+<h2>Ma Todo</h2>
+
+<input [(ngModel)]="texteAjout" placeholder="Ajouter" />
+<button (click)="ajouter()">Ajouter</button>
+
+<ul>
+  @for (t of todos; track t.id) {
+    <li>
+      <input
+        type="checkbox"
+        [checked]="t.etat === 'done'"
+        (change)="basculerEtat(t.id)" />
+
+      {{ t.texte }}
+
+      <button (click)="choisirPourModif(t)">Modifier</button>
+      <button (click)="supprimer(t.id)">Supprimer</button>
+    </li>
+  }
+</ul>
+
+<input [(ngModel)]="texteModif" placeholder="Modifier" />
+<button (click)="enregistrerModif()" [disabled]="!idModif">OK</button>
+
+<button (click)="toutSupprimer()" [disabled]="!todos.length">Supprimer tout</button>
