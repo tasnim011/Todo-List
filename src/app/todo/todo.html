@@ -1,25 +1,66 @@
-<h2>Ma Todo</h2>
+<header>
+    <h2>Liste des tâches à faire :</h2>
+</header>
+<section id="addSection">
+    <button class="btn btn-success" (click)="setAction('add')">Ajouter une tâche</button>
+    @if (action == "add") {
+        <form id="addForm">
+            <div class="mb-3">
+                <label for="task" class="form-label">Tâche</label>
+                <input type="email" class="form-control" id="task" #task>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addTask(task.value)">
+                Valider
+            </button>
+        </form>
+    }
+</section>
+<section id="editSection">
+    @if (action == "edit") {
+        <form id="addForm">
+            <div class="mb-3">
+                <label for="taskEdit" class="form-label">Tâche</label>
+                <input type="email" class="form-control" name="task" id="taskEdit" [(ngModel)]="taskToEdit.task" >
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="state" [checked]="taskToEdit.state == 'done'" (change)="changeState()" #state  >
+                <label class="form-check-label" for="state">Terminer la tâche</label>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="editTask()">
+                Valider
+            </button>
+        </form>
+    }
+</section>
+<section id="listSection">
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tâche</th>
+        <th scope="col">Etat</th>
+        <th scope="col">Editer</th>
+        <th scope="col">Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (todo of todos; track todo.id) {
+            <tr>
+                <th scope="row">{{todo.id}}</th>
+                <td>{{todo.task}}</td>
+                <td>{{todo.state}}</td>
+                <td><button class="btn btn-primary" (click)="showTaskToEdit(todo)">Editer</button></td>
+                <td><button class="btn btn-danger">Supprimer</button></td>
+            </tr>
+        }
+    </tbody>
+    </table>
+</section>
 
-<input [(ngModel)]="texteAjout" placeholder="Ajouter" />
-<button (click)="ajouter()">Ajouter</button>
-
-<ul>
-  @for (t of todos; track t.id) {
-    <li>
-      <input
-        type="checkbox"
-        [checked]="t.etat === 'done'"
-        (change)="basculerEtat(t.id)" />
-
-      {{ t.texte }}
-
-      <button (click)="choisirPourModif(t)">Modifier</button>
-      <button (click)="supprimer(t.id)">Supprimer</button>
-    </li>
-  }
-</ul>
-
-<input [(ngModel)]="texteModif" placeholder="Modifier" />
-<button (click)="enregistrerModif()" [disabled]="!idModif">OK</button>
-
-<button (click)="toutSupprimer()" [disabled]="!todos.length">Supprimer tout</button>
+<!--ul>
+    @for (todo of todos; track todo.id) {
+        @if(todo.state === "pending"){
+            <li>{{todo.task}}</li>
+        }
+    }
+</ul-->

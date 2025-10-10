@@ -1,0 +1,14 @@
+<form id="editForm">
+  <div class="mb-3">
+    <label for="taskEdit" class="form-label">Tâche</label>
+    <input type="text" class="form-control" id="taskEdit" [(ngModel)]="task.task" name="task">
+  </div>
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="state" [checked]="task.state == 'done'" (change)="changeState()">
+    <label class="form-check-label" for="state">Terminer la tâche</label>
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="save()">Valider</button>
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+</form>

@@ -1,11 +1,10 @@
-<h2>{{ title }}</h2>
-
-<input type="text" [(ngModel)]="title">
-
+<h2>{{title}}</h2>	
+<input type="text" [(ngModel)]="title" />
 <div>
-  <img [src]="url" alt="logo" width="150" />
+<button (click)="changeLogo()">Changer le logo</button>
+</div>
+<div>
+<img [src]="url" width="200px" />
 </div>
 
-<div>
-  <button (click)="changelogo()">Changer logo</button>
-</div>
+<app-child [titleParam]="title" (titleChanged)="updateTitle($event)"></app-child>

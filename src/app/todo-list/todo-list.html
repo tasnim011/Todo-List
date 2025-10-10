@@ -1,0 +1,49 @@
+<header>
+  <h2>Liste des tâches à faire :</h2>
+</header>
+
+<section id="addSection">
+  <button class="btn btn-success" (click)="setAction('add')">Ajouter une tâche</button>
+
+  @if (action === 'add') {
+    <app-todo-add
+      (cancelAdd)="setAction('')"
+      (taskAdded)="addTask($event)">
+    </app-todo-add>
+  }
+</section>
+
+<section id="editSection">
+  @if (action === 'edit') {
+    <app-todo-edit
+      [task]="taskToEdit"
+      (cancelEdit)="setAction('')"
+      (taskEdited)="editTask($event)">
+    </app-todo-edit>
+  }
+</section>
+
+<section id="listSection">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tâche</th>
+        <th>État</th>
+        <th>Éditer</th>
+        <th>Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (todo of todos; track todo.id) {
+        <tr>
+          <th scope="row">{{todo.id}}</th>
+          <td>{{todo.task}}</td>
+          <td>{{todo.state}}</td>
+          <td><button class="btn btn-primary" (click)="showTaskToEdit(todo)">Éditer</button></td>
+          <td><button class="btn btn-danger" (click)="deleteTask(todo.id)">Supprimer</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

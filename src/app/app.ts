@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Todo } from "./todo/todo";
+import { TodoList } from './todo-list/todo-list';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrls: ['./app.css'],
-  imports: [Todo],
+  imports: [TodoList],
+  template: `<app-todo-list></app-todo-list>`,
+  standalone: true
 })
-export class App {
-  title = 'firstApp';
-}
+export class App {}
